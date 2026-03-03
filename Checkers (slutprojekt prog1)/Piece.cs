@@ -1,6 +1,6 @@
 class Piece()
 {
-    public (int, int) position;
+    public Position position;
     public bool isBlack;
     public bool isKing;
 
