@@ -4,15 +4,17 @@ class Board()
 
     public void Initialize()
     {
-        List<Position.x> startpositions = []; //fixa en lista med vart pices ska börja.
-
-        for (int y = 0; y < 8; y++)
+        List<(int startY, int startX)> startpositions = [(1,2), (1, 4), (8,2)]; //fixa en lista med vart pices ska börja.
+        for (int i = 0; i < 64; i++)
         {
-            for (int x = 0; x < 8; x++)
+            for (int y = 0; y < 8; y++)
             {
-                if (squares[x, y].position ) //Gör så den kollar gemtemot en lista och ser om det ska vara en piece där
+                for (int x = 0; x < 8; x++)
                 {
-                    
+                    if (startpositions[y] == (y, x) ) //Gör så den kollar gemtemot en lista och ser om det ska vara en piece där
+                    {
+                        Console.WriteLine(y + "och" + x);
+                    }
                 }
             }
         }

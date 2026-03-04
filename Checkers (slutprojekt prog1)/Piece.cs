@@ -4,9 +4,9 @@ class Piece()
     public bool isBlack;
     public bool isKing;
 
-    List<(int, int)> LegalMoves()
+    List<(Piece, Position)> LegalMoves()
     {
-        List<(int, int)> legalPositions = [];
+        List<(Piece, Position)> legalPositions = [];
 
         //gör så den lägger in alla lagliga moves i listan
         
