@@ -78,6 +78,7 @@ class Board()
                     }
                 }
 
+                // Hade kunnat flytta detta till en ny funktion för snyggare kod.
                 if (squares[x, y] != null)
                 {
                     if(squares[x, y].isBlack == true)
