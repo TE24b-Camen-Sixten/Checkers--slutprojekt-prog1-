@@ -1,6 +1,6 @@
 ﻿Board board = new Board();
 
-board.PrintBoard();
 board.Initialize();
+board.PrintBoard();
 
 Console.ReadLine();

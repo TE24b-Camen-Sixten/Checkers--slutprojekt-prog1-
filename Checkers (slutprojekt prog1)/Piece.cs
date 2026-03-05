@@ -1,8 +1,22 @@
-class Piece()
+class Piece
 {
     public Position position;
     public bool isBlack;
-    public bool isKing;
+    public bool isKing = false;
+
+    public Piece(int x, int y)
+    {
+        position = new Position{x = x, y = y};
+
+        if (position.y > 4)
+        {
+            isBlack = true;
+        }
+        else
+        {
+            isBlack = false;
+        }
+    }
 
     List<(Piece, Position)> LegalMoves()
     {
