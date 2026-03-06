@@ -1,6 +1,6 @@
 class Board()
 {
-    public Piece[,] squares = new Piece[8,8]; // Gör ett 8x8 bräde som heter squares där varje ruta är en piece, de tomma rutorna ska vara null
+    public Piece[,] squares = new Piece[8, 8]; // Gör ett 8x8 bräde som heter squares där varje ruta är en piece, de tomma rutorna ska vara null
 
     public void Initialize()
     {
@@ -8,24 +8,24 @@ class Board()
         {
             for (int x = 0; x < 8; x++)
             {
-                if(y < 3 || y > 4)
+                if (y < 3 || y > 4)
                 {
                     if (x % 2 == 0)
                     {
                         if (y % 2 != 0)
                         {
-                            Console.WriteLine($"{x + 1},{y + 1}");
+                            // Console.WriteLine($"{x + 1},{y + 1}");
                             squares[x, y] = new Piece(x, y);
-                        }    
+                        }
                     }
                     else
                     {
                         if (y % 2 == 0)
                         {
-                            Console.WriteLine($"{x + 1},{y + 1}");
+                            // Console.WriteLine($"{x + 1},{y + 1}");
                             squares[x, y] = new Piece(x, y);
-                        }  
-                    } 
+                        }
+                    }
                 }
             }
         }
@@ -78,27 +78,35 @@ class Board()
                     }
                 }
 
-                // Hade kunnat flytta detta till en ny funktion för snyggare kod.
-                if (squares[x, y] != null)
-                {
-                    if(squares[x, y].isBlack == true)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write("X");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else
-                    {
-                        Console.Write("X");
-                    }
-                }
-                else
-                {
-                    Console.Write(" ");
-                }
+                PrintPieces(x, y);
             }
             Console.WriteLine();
         }
         Console.BackgroundColor = ConsoleColor.Black;
     }
+
+
+
+    void PrintPieces(int x, int y)
+    {
+        if (squares[x, y] != null)
+        {
+            if (squares[x, y].isBlack == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write("X");
+                // Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("X");
+            }
+        }
+        else
+        {
+            Console.Write(" ");
+        }
+    }
 }
+
