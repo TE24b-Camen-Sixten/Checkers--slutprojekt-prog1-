@@ -14,7 +14,6 @@ class Board()
                     {
                         if (y % 2 != 0)
                         {
-                            // Console.WriteLine($"{x + 1},{y + 1}");
                             squares[x, y] = new Piece(x, y);
                         }
                     }
@@ -22,31 +21,12 @@ class Board()
                     {
                         if (y % 2 == 0)
                         {
-                            // Console.WriteLine($"{x + 1},{y + 1}");
                             squares[x, y] = new Piece(x, y);
                         }
                     }
                 }
             }
         }
-
-
-
-
-        // List<(int startY, int startX)> startpositions = [(1,2), (1, 4), (8,2)]; //fixa en lista med vart pices ska börja.
-        // for (int i = 0; i < 3; i++)
-        // {
-        //     for (int y = 0; y < 8; y++)
-        //     {
-        //         for (int x = 0; x < 8; x++)
-        //         {
-        //             if (startpositions[i] == (y, x) ) //Gör så den kollar gemtemot en lista och ser om det ska vara en piece där
-        //             {
-        //                 Console.WriteLine(startpositions[i]);
-        //             }
-        //         }
-        //     }
-        // }
     }
 
     public void PrintBoard()
@@ -95,7 +75,6 @@ class Board()
             {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.Write("X");
-                // Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {

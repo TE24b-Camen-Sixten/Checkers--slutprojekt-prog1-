@@ -18,12 +18,32 @@ class Piece
         }
     }
 
-    List<(Piece, Position)> LegalMoves()
+    List<Position> LegalMoves(Piece[,] squares, Position moveFrom)
     {
-        List<(Piece, Position)> legalPositions = [];
+        List<Position> legalPositions = [];
 
-        //gör så den lägger in alla lagliga moves i listan
+        int dirY = 1;
+
+        if (isBlack)
+        {
+            dirY = -1;
+        }
         
+        if(squares[moveFrom.x + 1, moveFrom.y + dirY] == null)
+        {
+            legalPositions.Add(new Position{x = moveFrom.x + 1, y = moveFrom.y + dirY});
+        }
+        if(squares[moveFrom.x - 1, moveFrom.y + dirY] == null)
+        {
+            legalPositions.Add(new Position{x = moveFrom.x - 1, y = moveFrom.y + dirY});
+        }
+
+
         return legalPositions;
+    }
+
+    bool NeedToTake()
+    {
+        return false;
     }
 }
