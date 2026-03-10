@@ -1,6 +1,6 @@
 class Board()
 {
-    public Piece[,] squares = new Piece[8, 8]; // Gör ett 8x8 bräde som heter squares där varje ruta är en piece, de tomma rutorna ska vara null
+    public Piece[,] squares = new Piece[8, 8]; // Gör ett 8x8 bräde som heter squares där varje ruta kan vara en piece, nu är de null dock
 
     public void Initialize()
     {
@@ -58,34 +58,31 @@ class Board()
                     }
                 }
 
-                PrintPieces(x, y);
+                if (squares[x, y] != null)
+                {
+                    PrintPieces(x, y);
+                }
+                else
+                {
+                    Console.Write(" ");
+                }
             }
             Console.WriteLine();
         }
         Console.BackgroundColor = ConsoleColor.Black;
+        Console.ForegroundColor = ConsoleColor.White;
     }
-
-
 
     void PrintPieces(int x, int y)
     {
-        if (squares[x, y] != null)
+        if (squares[x, y].isBlack == true)
         {
-            if (squares[x, y].isBlack == true)
-            {
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.Write("X");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("X");
-            }
+            Console.ForegroundColor = ConsoleColor.Black;
         }
         else
         {
-            Console.Write(" ");
+            Console.ForegroundColor = ConsoleColor.White;
         }
+        Console.Write("X");
     }
 }
-

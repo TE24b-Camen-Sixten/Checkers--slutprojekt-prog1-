@@ -18,7 +18,7 @@ class Piece
         }
     }
 
-    List<Position> LegalMoves(Piece[,] squares, Position moveFrom)
+    public List<Position> LegalMoves(Piece[,] squares, Position moveFrom)
     {
         List<Position> legalPositions = [];
 
@@ -37,7 +37,6 @@ class Piece
         {
             legalPositions.Add(new Position{x = moveFrom.x - 1, y = moveFrom.y + dirY});
         }
-
 
         return legalPositions;
     }
