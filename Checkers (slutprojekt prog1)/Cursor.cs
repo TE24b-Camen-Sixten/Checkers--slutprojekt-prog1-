@@ -1,12 +1,26 @@
 class Cursor
 {
-    public Piece selectSquare(int x, int y, Board board)
+    public Position position;
+
+    public Piece selectSquare(Board board)
     {
-        return board.squares[x, y];
+        return board.squares[position.x, position.y];
     }
 
-    public void MoveUp(){}
-    public void MoveDown(){}
-    public void MoveLeft(){}
-    public void MoveRight(){}
+    public void MoveUp()
+    {
+        position.y += 1;
+    }
+    public void MoveDown()
+    {
+        position.y -= 1;
+    }
+    public void MoveRight()
+    {
+        position.x += 1;
+    }
+    public void MoveLeft()
+    {
+        position.x -= 1;
+    }
 }
