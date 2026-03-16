@@ -29,7 +29,7 @@ class Board
         }
     }
 
-    public void PrintBoard()
+    public void PrintBoard(Position cursorPos)
     {
         for (int y = 0; y < 8; y++)
         {
@@ -56,6 +56,11 @@ class Board
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                     }
+                }
+                
+                if(x == cursorPos.x && y == cursorPos.y)
+                {
+                    Console.BackgroundColor = ConsoleColor.Yellow;
                 }
 
                 if (squares[x, y] != null)

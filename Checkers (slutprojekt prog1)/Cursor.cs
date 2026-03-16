@@ -9,11 +9,11 @@ class Cursor
 
     public void MoveUp()
     {
-        position.y += 1;
+        position.y -= 1;
     }
     public void MoveDown()
     {
-        position.y -= 1;
+        position.y += 1;
     }
     public void MoveRight()
     {

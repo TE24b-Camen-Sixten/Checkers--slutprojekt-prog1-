@@ -1,11 +1,16 @@
 ﻿Board board = new Board();
+Cursor cursor = new Cursor();
 
 board.Initialize();
 board.RemovePiece(new Position{x=1, y=2});
-board.PrintBoard();
+board.PrintBoard(cursor.position);
+
+GameLogic logic = new GameLogic();
+
+Piece square = logic.SelectSquare(cursor, board);
 
 //TEST grejer, gör bra senare
-Position temp = new Position{x=2, y=5}; //Skriv in x och y för att få LegalMoves
+Position temp = new Position{x=square.position.x, y=square.position.y}; //Skriv in x och y för att få LegalMoves för pjäsen på den positionen
 Piece activePiece = board.squares[temp.x, temp.y];
 List<Position> legalpostest = activePiece.LegalMoves(board.squares, temp);
 
