@@ -1,6 +1,7 @@
 ﻿Board board = new Board();
 
 board.Initialize();
+board.RemovePiece(new Position{x=1, y=2});
 board.PrintBoard();
 
 //TEST grejer, gör bra senare

@@ -85,4 +85,9 @@ class Board
         }
         Console.Write("X");
     }
+
+    public void RemovePiece(Position position)
+    {
+        squares[position.x, position.y] = null;
+    }
 }
