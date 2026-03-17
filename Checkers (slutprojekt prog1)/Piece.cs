@@ -1,4 +1,4 @@
-class Piece
+class Piece //Pjäsen håller koll på vilken färg den har och om den är kung. Den kan även sin egen position och vilka lagliga drag den kan göra
 {
     public Position position;
     public bool isBlack;

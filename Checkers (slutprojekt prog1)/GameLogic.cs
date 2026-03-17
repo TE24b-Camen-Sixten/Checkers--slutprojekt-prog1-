@@ -2,7 +2,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
 {
     bool player1sTurn = true;
 
-    public Piece SelectSquare(Cursor cursor, Board board)
+    public Piece SelectPieceToMove(Cursor cursor, Board board)
     {
         Console.WriteLine("Move the cursor by using arrow keys, select the current square with Enter");
 
@@ -15,15 +15,31 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
             {
                 case ConsoleKey.UpArrow:
                     cursor.MoveUp();
+                    if (cursor.position.y < 0)
+                    {
+                        cursor.position.y = 0;
+                    }
                     break;
                 case ConsoleKey.DownArrow:
                     cursor.MoveDown();
+                    if (cursor.position.y > 7)
+                    {
+                        cursor.position.y = 7;
+                    }
                     break;
                 case ConsoleKey.RightArrow:
                     cursor.MoveRight();
+                    if (cursor.position.x > 7)
+                    {
+                        cursor.position.x = 7;
+                    }
                     break;
                 case ConsoleKey.LeftArrow:
                     cursor.MoveLeft();
+                    if (cursor.position.x < 0)
+                    {
+                        cursor.position.x = 0;
+                    }
                     break;
                 case ConsoleKey.Enter:
                     return cursor.selectSquare(board);
@@ -31,8 +47,14 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
                     Console.WriteLine("You need to use the arrow keys to move, or Enter to select the current square");
                     break;
             }
+            
             Console.Clear();
             board.PrintBoard(cursor.position);
         }
+    }
+
+    public void MovePieceTo()
+    {
+        
     }
 }
