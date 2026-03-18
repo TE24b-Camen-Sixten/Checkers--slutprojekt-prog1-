@@ -18,7 +18,7 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
         }
     }
 
-    public List<Position> LegalMoves(Piece[,] squares, Position moveFrom)
+    public List<Position> LegalMoves(Piece[,] squares, Position moveFrom) // Räknar ut vilka rutor den kan flytta sig till, retunerar sedan det i en lista med positioner
     {
         List<Position> legalPositions = [];
 

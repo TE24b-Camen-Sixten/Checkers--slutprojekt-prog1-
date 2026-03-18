@@ -1,8 +1,8 @@
 class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla pieces befinner sig.
 {
-    public Piece[,] squares = new Piece[8, 8]; // Gör ett 8x8 bräde som heter squares där varje ruta kan vara en piece, nu är de null dock
+    public Piece[,] squares = new Piece[8, 8]; // Gör ett 8x8 bräde där varje ruta kan vara en piece, nu är de null dock.
 
-    public void Initialize()
+    public void Initialize() // Skapar pjäser på deras startpositioner. 
     {
         for (int y = 0; y < 8; y++)
         {
@@ -29,34 +29,13 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
         }
     }
 
-    public void PrintBoard(Position cursorPos)
+    public void PrintBoard(Position cursorPos) // Ritar ut det man ser, kallar på PrintPieces där det ska vara pjäser och PrintBackground för själva brädet.
     {
         for (int y = 0; y < 8; y++)
         {
             for (int x = 0; x < 8; x++)
             {
-                if (x % 2 == 0)
-                {
-                    if (y % 2 == 0)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                    }
-                    else
-                    {
-                        Console.BackgroundColor = ConsoleColor.DarkGray;
-                    }
-                }
-                else
-                {
-                    if (y % 2 != 0)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                    }
-                    else
-                    {
-                        Console.BackgroundColor = ConsoleColor.DarkGray;
-                    }
-                }
+                PrintBackground(x, y);
                 
                 if(x == cursorPos.x && y == cursorPos.y)
                 {
@@ -78,7 +57,33 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
         Console.ForegroundColor = ConsoleColor.White;
     }
 
-    void PrintPieces(int x, int y)
+    void PrintBackground(int x, int y) // Kollar om rutan ska vara svart eller vit, ändrar sedan bakgrundsfärgen till rätt färg.
+    {
+        if (x % 2 == 0)
+        {
+            if (y % 2 == 0)
+            {
+                Console.BackgroundColor = ConsoleColor.Gray;
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+            }
+        }
+        else
+        {
+            if (y % 2 != 0)
+            {
+                Console.BackgroundColor = ConsoleColor.Gray;
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+            }
+        }
+    }
+
+    void PrintPieces(int x, int y) // Skriver ut ett "X" för att symbolisera en pjäs. Ser även till att pjäserna har rätt färg.
     {
         if (squares[x, y].isBlack == true)
         {
@@ -91,7 +96,12 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
         Console.Write("X");
     }
 
-    public void RemovePiece(Position position)
+    public void MovePiece(Position startPosition, Position endPosition) // Flyttar en pjäs från en position till en annan
+    {
+        squares[startPosition.x, startPosition.y].position = endPosition;
+    }
+
+    public void RemovePiece(Position position) // Tar bort den pjäs som befinner sig på den position som blir inmatad 
     {
         squares[position.x, position.y] = null;
     }

@@ -42,9 +42,19 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
                     }
                     break;
                 case ConsoleKey.Enter:
-                    return cursor.selectSquare(board);
+                    if (SelectedRightColor(player1sTurn, cursor.selectSquare(board)))
+                    {
+                        return cursor.selectSquare(board);
+                    }
+                    else
+                    {
+                        Console.WriteLine("You need to select a piece of your own color");
+                        Console.ReadLine();
+                        break;
+                    }
                 default:
                     Console.WriteLine("You need to use the arrow keys to move, or Enter to select the current square");
+                    Console.ReadLine();
                     break;
             }
             
@@ -53,8 +63,34 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
         }
     }
 
-    public void MovePieceTo()
+    public void SelectMovement(List<Position> legalPositions)
     {
         
+    }
+
+    bool SelectedRightColor(bool player1sTurn, Piece selectedPiece)
+    {
+        if (selectedPiece.isBlack == true)
+        {
+            if (player1sTurn == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (player1sTurn == false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
