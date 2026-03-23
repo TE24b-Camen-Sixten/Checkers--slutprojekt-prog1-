@@ -36,8 +36,8 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
             for (int x = 0; x < 8; x++)
             {
                 PrintBackground(x, y);
-                
-                if(x == cursorPos.x && y == cursorPos.y)
+
+                if (x == cursorPos.x && y == cursorPos.y)
                 {
                     Console.BackgroundColor = ConsoleColor.Yellow;
                 }
@@ -98,7 +98,12 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
 
     public void MovePiece(Position startPosition, Position endPosition) // Flyttar en pjäs från en position till en annan
     {
-        squares[startPosition.x, startPosition.y].position = endPosition;
+        Piece piece = squares[startPosition.x, startPosition.y];
+
+        squares[endPosition.x, endPosition.y] = piece;
+        squares[startPosition.x, startPosition.y] = null;
+
+        piece.position = endPosition;
     }
 
     public void RemovePiece(Position position) // Tar bort den pjäs som befinner sig på den position som blir inmatad 
