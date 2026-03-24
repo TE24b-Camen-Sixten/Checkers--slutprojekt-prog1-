@@ -14,8 +14,6 @@ Position temp = new Position{x=movingPiece.position.x, y=movingPiece.position.y}
 Piece activePiece = board.squares[temp.x, temp.y];
 List<Position> legalpostest = activePiece.LegalMoves(board.squares, temp);
 
-// logic.SelectMovement(legalpostest, cursor, board, movingPiece.position);
-
 if (legalpostest.Count == 0)
 {
     Console.WriteLine("Can't move that piece");
@@ -32,5 +30,7 @@ else if (legalpostest.Count == 2)
     Console.Write(legalpostest[1].x + ", ");
     Console.WriteLine(legalpostest[1].y);
 }
+
+logic.SelectMovement(legalpostest, cursor, board, movingPiece.position);
 
 Console.ReadLine();

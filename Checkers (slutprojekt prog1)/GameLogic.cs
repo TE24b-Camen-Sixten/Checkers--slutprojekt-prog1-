@@ -4,7 +4,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
 
     public Piece SelectPieceToMove(Cursor cursor, Board board)
     {
-        Console.WriteLine("Move the cursor by using arrow keys, select the current square with Enter");
+        Console.WriteLine("Move the cursor by using arrow keys, select the current square with [Enter]");
 
         cursor.position = new Position { x = 0, y = 0 };
         while (true)
@@ -18,7 +18,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
             }
             else
             {
-                Console.WriteLine("Can't move that piece! Press Enter and then select a piece of your color!");
+                Console.WriteLine("Can't move that piece! Select a piece of your color!");
             }
         }
 
@@ -93,14 +93,29 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
 
     public void SelectMovement(List<Position> legalPositions, Cursor cursor, Board board, Position moveFrom)
     {
-        while (true)
+        cursor.MoveAndSelect(board);
+        Position choosenPosition = cursor.position;
+        for (int i = 0; i < legalPositions.Count; i++)
         {
-            Position choosenPosition = cursor.MoveAndSelect(board).position;
-            if (legalPositions.Contains(choosenPosition))
+            int x = legalPositions[i].x;
+            int y = legalPositions[i].y;
+
+            if (choosenPosition.x == x && choosenPosition.y == y)
             {
                 board.MovePiece(moveFrom, choosenPosition);
+                return;
             }
         }
+        Console.WriteLine("IDIOT!");
+
+        // while (true)
+        // {
+        //     Position choosenPosition = cursor.MoveAndSelect(board).position;
+        //     if (legalPositions.Contains(choosenPosition))
+        //     {
+        //         board.MovePiece(moveFrom, choosenPosition);
+        //     }
+        // }
     }
 
     bool SelectedRightColor(bool player1sTurn, Piece selectedPiece)
