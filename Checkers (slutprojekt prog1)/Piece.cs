@@ -4,6 +4,8 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
     public bool isBlack;
     public bool isKing = false;
 
+    public bool NeedToTake;
+
     public Piece(int x, int y)
     {
         position = new Position{x = x, y = y};
@@ -33,6 +35,10 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
         {
             legalPositions.Add(new Position{x = moveFrom.x + 1, y = moveFrom.y + dirY});
         }
+        else if (squares[moveFrom.x + 1, moveFrom.y + dirY].isBlack != isBlack)
+        {
+            NeedToTake = true;
+        }
         if(squares[moveFrom.x - 1, moveFrom.y + dirY] == null)
         {
             legalPositions.Add(new Position{x = moveFrom.x - 1, y = moveFrom.y + dirY});
@@ -41,8 +47,8 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
         return legalPositions;
     }
 
-    bool NeedToTake()
+    List<Position> TakeList(List<Position> legalMovesBefore)
     {
-        return false;
+        return [];
     }
 }

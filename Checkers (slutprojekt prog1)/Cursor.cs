@@ -23,7 +23,7 @@ class Cursor
         position.x -= 1;
     }
 
-    public Piece MoveAndSelect(Board board)
+    public void MoveCursor(Board board)
     {
         while (true)
         {
@@ -59,7 +59,8 @@ class Cursor
                     }
                     break;
                 case ConsoleKey.Enter:
-                    return selectSquare(board);
+                    return;
+                    // return selectSquare(board);
                 default:
                     Console.WriteLine("You need to use the arrow keys to move, or Enter to select the current square");
                     Console.ReadLine();

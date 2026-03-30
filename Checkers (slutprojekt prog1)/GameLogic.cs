@@ -9,8 +9,8 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
         cursor.position = new Position { x = 0, y = 0 };
         while (true)
         {
-
-            Piece currentPiece = cursor.MoveAndSelect(board);
+            cursor.MoveCursor(board);
+            Piece currentPiece = board.squares[cursor.position.x, cursor.position.y];
 
             if (SelectedRightColor(player1sTurn, currentPiece))
             {
@@ -93,7 +93,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
 
     public void SelectMovement(List<Position> legalPositions, Cursor cursor, Board board, Position moveFrom)
     {
-        cursor.MoveAndSelect(board);
+        cursor.MoveCursor(board);
         Position choosenPosition = cursor.position;
         for (int i = 0; i < legalPositions.Count; i++)
         {
@@ -142,6 +142,5 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
                 return false;
             }
         }
-
     }
 }

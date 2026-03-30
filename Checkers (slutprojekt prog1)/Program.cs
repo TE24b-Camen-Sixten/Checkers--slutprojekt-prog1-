@@ -33,4 +33,7 @@ else if (legalpostest.Count == 2)
 
 logic.SelectMovement(legalpostest, cursor, board, movingPiece.position);
 
+Console.Clear();
+board.PrintBoard(cursor.position);
+
 Console.ReadLine();
