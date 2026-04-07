@@ -30,25 +30,31 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
         {
             dirY = -1;
         }
-        
-        if(squares[moveFrom.x + 1, moveFrom.y + dirY] == null)
-        {
-            legalPositions.Add(new Position{x = moveFrom.x + 1, y = moveFrom.y + dirY});
-        }
-        else if (squares[moveFrom.x + 1, moveFrom.y + dirY].isBlack != isBlack)
-        {
-            NeedToTake = true;
-        }
-        if(squares[moveFrom.x - 1, moveFrom.y + dirY] == null)
-        {
-            legalPositions.Add(new Position{x = moveFrom.x - 1, y = moveFrom.y + dirY});
-        }
 
+        try
+        {
+            if(squares[moveFrom.x + 1, moveFrom.y + dirY] == null)
+            {
+                legalPositions.Add(new Position{x = moveFrom.x + 1, y = moveFrom.y + dirY});
+            }
+            else if (squares[moveFrom.x + 1, moveFrom.y + dirY].isBlack != isBlack)
+            {
+                //Denna ska inte göra något, har kvar för kommer användas frö need to take
+                // NeedToTake = true;
+            }
+            if(squares[moveFrom.x - 1, moveFrom.y + dirY] == null)
+            {
+                legalPositions.Add(new Position{x = moveFrom.x - 1, y = moveFrom.y + dirY});
+            } 
+        }
+        catch (IndexOutOfRangeException) {  }
+        
         return legalPositions;
     }
 
     List<Position> TakeList(List<Position> legalMovesBefore)
     {
+        //Idéen är  att denna kollar alla pieces och ser om man måste ta, om man måste det returnar denb en lista med pieces man kan göra ett drag med.
         return [];
     }
 }

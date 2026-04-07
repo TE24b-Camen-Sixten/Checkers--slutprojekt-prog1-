@@ -3,14 +3,15 @@ Board board = new Board();
 Cursor cursor = new Cursor();
 
 board.Initialize();
-board.RemovePiece(new Position{x=1, y=2});
-board.MovePiece(new Position{x=3, y=2}, new Position{x=2, y=3});
+board.RemovePiece(new Position { x = 1, y = 2 });
+board.MovePiece(new Position { x = 3, y = 2 }, new Position { x = 2, y = 3 });
 board.PrintBoard(cursor.position);
+
 
 Piece movingPiece = logic.SelectPieceToMove(cursor, board);
 
 //TEST grejer, gör bra senare
-Position temp = new Position{x=movingPiece.position.x, y=movingPiece.position.y}; //Skriv in x och y för att få LegalMoves för pjäsen på den positionen
+Position temp = new Position { x = movingPiece.position.x, y = movingPiece.position.y }; //Skriv in x och y för att få LegalMoves för pjäsen på den positionen
 Piece activePiece = board.squares[temp.x, temp.y];
 List<Position> legalpostest = activePiece.LegalMoves(board.squares, temp);
 
@@ -18,7 +19,7 @@ if (legalpostest.Count == 0)
 {
     Console.WriteLine("Can't move that piece");
 }
-else if(legalpostest.Count == 1)
+else if (legalpostest.Count == 1)
 {
     Console.Write(legalpostest[0].x + ", ");
     Console.WriteLine(legalpostest[0].y);
