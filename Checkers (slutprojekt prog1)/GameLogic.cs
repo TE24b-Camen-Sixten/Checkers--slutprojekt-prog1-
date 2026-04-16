@@ -1,6 +1,6 @@
 class GameLogic //Denna class ska ansvara för logik så som vems tur det är och vad den spelaren ska göra nu.
 {
-    bool player1sTurn = true;
+    public bool player1sTurn = true;
 
     public Piece SelectPieceToMove(Cursor cursor, Board board)
     {
@@ -18,7 +18,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
             }
             else
             {
-                Console.WriteLine("Can't move that piece! Select a piece of your color!");
+                Console.WriteLine("Can't move that piece! Select a piece of your color! 1");
             }
         }
 
@@ -108,7 +108,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
         }
         Console.WriteLine("IDIOT!");
 
-        // while (true)
+        // while (true)<
         // {
         //     Position choosenPosition = cursor.MoveAndSelect(board).position;
         //     if (legalPositions.Contains(choosenPosition))
@@ -120,6 +120,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
 
     bool SelectedRightColor(bool player1sTurn, Piece selectedPiece)
     {
+        //Detta krashar om man tar en tom ruta, lös!
         if (selectedPiece.isBlack == true)
         {
             if (player1sTurn == true)
