@@ -6,7 +6,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
     {
         Console.WriteLine("Move the cursor by using arrow keys, select the current square with [Enter]");
 
-        cursor.position = new Position { x = 0, y = 0 };
+        // cursor.position = new Position { x = 0, y = 0 };
         while (true)
         {
             cursor.MoveCursor(board);

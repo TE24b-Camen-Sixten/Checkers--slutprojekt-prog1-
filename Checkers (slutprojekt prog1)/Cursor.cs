@@ -2,6 +2,12 @@ class Cursor
 {
     public Position position;
 
+    public Cursor()
+    {
+        position.x = 0;
+        position.y = 0;    
+    }
+
     Piece selectSquare(Board board)
     {
         return board.squares[position.x, position.y];
