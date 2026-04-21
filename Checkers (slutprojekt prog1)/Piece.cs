@@ -6,7 +6,7 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
 
     public bool NeedToTake;
 
-    public Piece(int x, int y)
+    public Piece(int x, int y) // Körs när en pjäs skapas. Den sätter positionen och sätter pjäsen till antingen svart eller vit.
     {
         position = new Position{x = x, y = y};
 
@@ -24,14 +24,14 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
     {
         List<Position> legalPositions = [];
 
-        int dirY = 1;
+        int dirY = 1; // En variabel som säger om pjäsen kan gå upp eller ner. 1 = ner -1 = ner egersom då kan man bara multiplicera in det.
 
         if (isBlack)
         {
             dirY = -1;
         }
 
-        try
+        try // Kollar ifall det krashar, vilket det gör om en pjäs är på kanten. Isåfall skippar den koden.
         {
             if(squares[moveFrom.x + 1, moveFrom.y + dirY] == null)
             {

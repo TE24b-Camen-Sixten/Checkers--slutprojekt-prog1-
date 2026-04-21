@@ -1,7 +1,6 @@
 class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla pieces befinner sig.
 {
-    public Piece[,] squares = new Piece[8, 8]; // Gör ett 8x8 bräde där varje ruta kan vara en piece, nu är de null dock.
-
+    public Piece[,] squares = new Piece[8, 8]; // Gör ett 8x8 bräde där varje ruta kan vara en piece, nu är de null dock. Valde en array för att den ska ha samma länd hela tiden (8) och kunna vara null eftersom det är så jag ser att det inte är en pjäs på den positionen.
     public void Initialize() // Skapar pjäser på deras startpositioner. 
     {
         for (int y = 0; y < 8; y++)
@@ -44,7 +43,7 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
 
                 if (squares[x, y] != null)
                 {
-                    PrintPieces(x, y);
+                    PrintPiece(x, y);
                 }
                 else
                 {
@@ -83,7 +82,7 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
         }
     }
 
-    void PrintPieces(int x, int y) // Skriver ut ett "X" för att symbolisera en pjäs. Ser även till att pjäserna har rätt färg.
+    void PrintPiece(int x, int y) // Skriver ut ett "X" för att symbolisera en pjäs. Ser även till att pjäserna har rätt färg.
     {
         if (squares[x, y].isBlack == true)
         {

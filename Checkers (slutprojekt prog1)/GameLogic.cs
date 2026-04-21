@@ -2,96 +2,31 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
 {
     public bool player1sTurn = true;
 
-    public Piece SelectPieceToMove(Cursor cursor, Board board)
-    {
-        Console.WriteLine("Move the cursor by using arrow keys, select the current square with [Enter]");
+    public Piece SelectPieceToMove(Cursor cursor, Board board) // Låter användaren välja en pjäs att flytta. Detta gör den genom att först låta hen flytta cursorn.
+    {                                                         //  Efter det returnerar den pjäsen som har samma position som cursorn om det är rätt färg.
+        Console.WriteLine("Move the cursor by using arrow keys, select the current square with [Enter]"); 
 
         // cursor.position = new Position { x = 0, y = 0 };
         while (true)
         {
             cursor.MoveCursor(board);
             Piece currentPiece = board.squares[cursor.position.x, cursor.position.y];
-
-            if (SelectedRightColor(player1sTurn, currentPiece))
+            try
             {
-                return currentPiece;
+                if (SelectedRightColor(player1sTurn, currentPiece))
+                {
+                    return currentPiece;
+                }
+                else
+                {
+                    Console.WriteLine("Can't move that piece! Select a piece of your color! 1");
+                }
             }
-            else
-            {
-                Console.WriteLine("Can't move that piece! Select a piece of your color! 1");
-            }
+            catch(NullReferenceException) {  }
         }
-
-
-        // while (true)
-        // {
-        //     if (SelectedRightColor(player1sTurn, cursor.selectSquare(board)))
-        //     {
-        //     }
-        //     else
-        //     {
-        //         Console.WriteLine("You need to select a piece of your own color");
-        //         Console.ReadLine();
-        //     }
-        // }
-
-
-        // while (true)
-        // {
-        //     ConsoleKey pressedKey = Console.ReadKey(true).Key;
-        //     switch (pressedKey) // Fixa så det är MoveCursor.
-        //     {
-        //         case ConsoleKey.UpArrow:
-        //             cursor.MoveUp();
-        //             if (cursor.position.y < 0)
-        //             {
-        //                 cursor.position.y = 0;
-        //             }
-        //             break;
-        //         case ConsoleKey.DownArrow:
-        //             cursor.MoveDown();
-        //             if (cursor.position.y > 7)
-        //             {
-        //                 cursor.position.y = 7;
-        //             }
-        //             break;
-        //         case ConsoleKey.RightArrow:
-        //             cursor.MoveRight();
-        //             if (cursor.position.x > 7)
-        //             {
-        //                 cursor.position.x = 7;
-        //             }
-        //             break;
-        //         case ConsoleKey.LeftArrow:
-        //             cursor.MoveLeft();
-        //             if (cursor.position.x < 0)
-        //             {
-        //                 cursor.position.x = 0;
-        //             }
-        //             break;
-        //         case ConsoleKey.Enter:
-        //             if (SelectedRightColor(player1sTurn, cursor.selectSquare(board)))
-        //             {
-        //                 return cursor.selectSquare(board);
-        //             }
-        //             else
-        //             {
-        //                 Console.WriteLine("You need to select a piece of your own color");
-        //                 Console.ReadLine();
-        //                 break;
-        //             }
-        //         default:
-        //             Console.WriteLine("You need to use the arrow keys to move, or Enter to select the current square");
-        //             Console.ReadLine();
-        //             break;
-        //     }
-
-        //     Console.Clear();
-        //     board.PrintBoard(cursor.position);
-        // }
     }
 
-    public void SelectMovement(List<Position> legalPositions, Cursor cursor, Board board, Position moveFrom)
+    public void SelectMovement(List<Position> legalPositions, Cursor cursor, Board board, Position moveFrom) // Låter spelaren välja var hen vill flytta den valda pjäsen till en av de tillåtna rutorna.
     {
         cursor.MoveCursor(board);
         Position choosenPosition = cursor.position;
@@ -107,20 +42,10 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
             }
         }
         Console.WriteLine("IDIOT!");
-
-        // while (true)<
-        // {
-        //     Position choosenPosition = cursor.MoveAndSelect(board).position;
-        //     if (legalPositions.Contains(choosenPosition))
-        //     {
-        //         board.MovePiece(moveFrom, choosenPosition);
-        //     }
-        // }
     }
 
-    bool SelectedRightColor(bool player1sTurn, Piece selectedPiece)
+    bool SelectedRightColor(bool player1sTurn, Piece selectedPiece) // Kollar ifall pjäsen har den rätta färgen. (svart om det är player 1 och vit om det är player 2)
     {
-        //Detta krashar om man tar en tom ruta, lös!
         if (selectedPiece.isBlack == true)
         {
             if (player1sTurn == true)
