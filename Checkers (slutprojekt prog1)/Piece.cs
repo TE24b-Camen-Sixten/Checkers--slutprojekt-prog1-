@@ -8,7 +8,7 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
 
     public Piece(int x, int y) // Körs när en pjäs skapas. Den sätter positionen och sätter pjäsen till antingen svart eller vit.
     {
-        position = new Position{x = x, y = y};
+        position = new Position { x = x, y = y };
 
         if (position.y > 4)
         {
@@ -33,28 +33,51 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
 
         try // Kollar ifall det krashar, vilket det gör om en pjäs är på kanten. Isåfall skippar den koden.
         {
-            if(squares[moveFrom.x + 1, moveFrom.y + dirY] == null)
+            if (squares[moveFrom.x + 1, moveFrom.y + dirY] == null)
             {
-                legalPositions.Add(new Position{x = moveFrom.x + 1, y = moveFrom.y + dirY});
+                legalPositions.Add(new Position { x = moveFrom.x + 1, y = moveFrom.y + dirY });
             }
-            else if (squares[moveFrom.x + 1, moveFrom.y + dirY].isBlack != isBlack)
+            if (squares[moveFrom.x - 1, moveFrom.y + dirY] == null)
             {
-                //Denna ska inte göra något, har kvar för kommer användas frö need to take
-                // NeedToTake = true;
+                legalPositions.Add(new Position { x = moveFrom.x - 1, y = moveFrom.y + dirY });
             }
-            if(squares[moveFrom.x - 1, moveFrom.y + dirY] == null)
+            
+            if (squares[moveFrom.x + 1, moveFrom.y + dirY].isBlack != isBlack || squares[moveFrom.x - 1, moveFrom.y + dirY].isBlack != isBlack)
             {
-                legalPositions.Add(new Position{x = moveFrom.x - 1, y = moveFrom.y + dirY});
-            } 
+                return CanTake()
+            }
         }
-        catch (IndexOutOfRangeException) {  }
-        
+        catch (IndexOutOfRangeException) { }
+
         return legalPositions;
     }
 
-    List<Position> TakeList(List<Position> legalMovesBefore)
+    List<Position> CanTake(Piece[,] squares, Position startPos, int dirY, List<Position> legalPositions)
     {
-        //Idéen är  att denna kollar alla pieces och ser om man måste ta, om man måste det returnar denb en lista med pieces man kan göra ett drag med.
-        return [];
+        if (CanTakeChecker(squares, startPos, dirY))
+        {
+            legalPositions.Clear();
+            if (squares[startPos.x + 1, startPos.y + dirY] == null)
+            {
+                NeedToTake = true;
+                legalPositions.Add(new Position { x = startPos.x + 1, y = startPos.y + dirY });
+            }
+            if (squares[startPos.x - 1, startPos.y + dirY] == null)
+            {
+                NeedToTake = true;
+                legalPositions.Add(new Position { x = startPos.x - 1, y = startPos.y + dirY });
+            }
+        }
+
+        return legalPositions;
+    }
+
+    bool CanTakeChecker(Piece[,] squares, Position startPos, int dirY)
+    {
+        if (squares[startPos.x + 1, startPos.y + dirY] == null || squares[startPos.x - 1, startPos.y + dirY] == null)
+        {
+            return true;
+        }
+        return false;
     }
 }
