@@ -9,7 +9,7 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
             {
                 if (y < 3 || y > 4)
                 {
-                    if (x % 2 == 0) // jag är en bög ocg vet inte varför jag gjorde så här
+                    if (x % 2 == 0)
                     {
                         if (y % 2 != 0)
                         {

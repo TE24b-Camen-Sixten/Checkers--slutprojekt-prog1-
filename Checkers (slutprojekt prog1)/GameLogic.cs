@@ -4,7 +4,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
 
     public Piece SelectPieceToMove(Cursor cursor, Board board) // Låter användaren välja en pjäs att flytta. Detta gör den genom att först låta hen flytta cursorn.
     {                                                         //  Efter det returnerar den pjäsen som har samma position som cursorn om det är rätt färg.
-        Console.WriteLine("Move the cursor by using arrow keys, select the current square with [Enter]"); 
+        Console.WriteLine("Move the cursor by using arrow keys, select the current square with [Enter]");
 
         // cursor.position = new Position { x = 0, y = 0 };
         while (true)
@@ -19,29 +19,32 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
                 }
                 else
                 {
-                    Console.WriteLine("Can't move that piece! Select a piece of your color! 1");
+                    Console.WriteLine("Can't move that piece! Select a piece of your color!");
                 }
             }
-            catch(NullReferenceException) {  }
+            catch (NullReferenceException) { }
         }
     }
 
     public void SelectMovement(List<Position> legalPositions, Cursor cursor, Board board, Position moveFrom) // Låter spelaren välja var hen vill flytta den valda pjäsen till en av de tillåtna rutorna.
     {
-        cursor.MoveCursor(board);
-        Position choosenPosition = cursor.position;
-        for (int i = 0; i < legalPositions.Count; i++)
+        while (true)
         {
-            int x = legalPositions[i].x;
-            int y = legalPositions[i].y;
-
-            if (choosenPosition.x == x && choosenPosition.y == y)
+            cursor.MoveCursor(board);
+            Position choosenPosition = cursor.position;
+            for (int i = 0; i < legalPositions.Count; i++)
             {
-                board.MovePiece(moveFrom, choosenPosition);
-                return;
+                int x = legalPositions[i].x;
+                int y = legalPositions[i].y;
+
+                if (choosenPosition.x == x && choosenPosition.y == y)
+                {
+                    board.MovePiece(moveFrom, choosenPosition);
+                    return;
+                }
             }
+            Console.WriteLine("IDIOT! Det är inte ett lagligt drag.");
         }
-        Console.WriteLine("IDIOT!");
     }
 
     bool SelectedRightColor(bool player1sTurn, Piece selectedPiece) // Kollar ifall pjäsen har den rätta färgen. (svart om det är player 1 och vit om det är player 2)
