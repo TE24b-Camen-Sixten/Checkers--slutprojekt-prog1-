@@ -25,21 +25,30 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
     {
         List<Position> legalPositions = [];
 
-        (Piece right, Piece left) DiagonalSquares = IsPieceOnDiagonals(squares, startPos);
+        (Piece right, Piece left) DiagonalSquares = GetPieceOnDiagonals(squares, startPos);
 
         try
         {
-            if(DiagonalSquares.right == null)
-            {
-                legalPositions.Add(new Position { x = startPos.x + 1, y = startPos.y + dirY });
-            }
-            if(DiagonalSquares.left == null)
+            if (DiagonalSquares.right == null)
             {
                 legalPositions.Add(new Position { x = startPos.x - 1, y = startPos.y + dirY });
             }
+            else
+            {
+                CanTake(squares, new Position { x = startPos.x - 1, y = startPos.y + dirY }, dirY, false);
+            }
+
+            if (DiagonalSquares.left == null)
+            {
+                legalPositions.Add(new Position { x = startPos.x + 1, y = startPos.y + dirY });
+            }
+            else
+            {
+                CanTake(squares, new Position { x = startPos.x + 1, y = startPos.y + dirY }, dirY, true);
+            }
         }
-        catch (IndexOutOfRangeException) {  }
-        
+        catch (IndexOutOfRangeException) { }
+
 
         // try // Kollar ifall det krashar, vilket det gör om en pjäs är på kanten. Isåfall skippar den koden.
         // {
@@ -66,61 +75,41 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
         return legalPositions;
     }
 
-    (Piece, Piece) IsPieceOnDiagonals(Piece[,] squares, Position startPos) // Ska vara en mer generell version av det som händer i LegalMoves
+    (Piece, Piece) GetPieceOnDiagonals(Piece[,] squares, Position startPos) // Ska vara en mer generell version av det som händer i LegalMoves
     {
-        Piece rightPiece = squares[startPos.x + 1, startPos.y + dirY];
-        Piece leftPiece = squares[startPos.x - 1, startPos.y + dirY]; //gör en try där dessa blir null om den fakar
 
-        // try
-        // {
-        //     if (squares[startPos.x + 1, startPos.y + dirY] != null)
-        //     {
-        //         rightPiece = squares[startPos.x + 1, startPos.y + dirY];
-        //     }
-        // }
-        // catch (IndexOutOfRangeException) {  }
-        // try
-        // {
-        //     if (squares[startPos.x - 1, startPos.y + dirY] != null)
-        //     {
-        //         leftPiece = ;
-        //     }    
-        // }
-        // catch (IndexOutOfRangeException) {  }
+        Piece rightPiece = squares[startPos.x - 1, startPos.y + dirY];
+        Piece leftPiece = squares[startPos.x + 1, startPos.y + dirY]; //gör en try där dessa blir null om den fakar
 
         return (rightPiece, leftPiece);
     }
 
+    Position? CanTake(Piece[,] squares, Position startPos, int dirY, bool checkLeft)
+    {
+        (Piece right, Piece left) DiagonalSquares = GetPieceOnDiagonals(squares, startPos);
+        if (checkLeft)
+        {
+            if (DiagonalSquares.left == null)
+            {
+                try
+                {
+                    return squares[startPos.x + 1, startPos.y + dirY].position;
+                }
+                catch (NullReferenceException) { }
+            }
+        }
+        else if (!checkLeft)
+        {
+            if (DiagonalSquares.right == null)
+            {
+                try
+                {
+                    return squares[startPos.x - 1, startPos.y + dirY].position;
+                }
+                catch (NullReferenceException) { }
+            }
+        }
 
-
-    //Dålig tanke under, jag gör om hela grejen.
-
-    // List<Position> CanTake(Piece[,] squares, Position startPos, int dirY, List<Position> legalPositions)
-    // {
-    //     if (CanTakeChecker(squares, startPos, dirY))
-    //     {
-    //         legalPositions.Clear();
-    //         if (squares[startPos.x + 1, startPos.y + dirY] == null)
-    //         {
-    //             NeedToTake = true;
-    //             legalPositions.Add(new Position { x = startPos.x + 1, y = startPos.y + dirY });
-    //         }
-    //         if (squares[startPos.x - 1, startPos.y + dirY] == null)
-    //         {
-    //             NeedToTake = true;
-    //             legalPositions.Add(new Position { x = startPos.x - 1, y = startPos.y + dirY });
-    //         }
-    //     }
-
-    //     return legalPositions;
-    // }
-
-    // bool CanTakeChecker(Piece[,] squares, Position startPos, int dirY)
-    // {
-    //     if (squares[startPos.x + 1, startPos.y + dirY] == null || squares[startPos.x - 1, startPos.y + dirY] == null)
-    //     {
-    //         return true;
-    //     }
-    //     return false;
-    // }
+        return null;
+    }
 }
