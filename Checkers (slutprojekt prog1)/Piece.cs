@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 class Piece //Pjäsen håller koll på vilken färg den har och om den är kung. Den kan även sin egen position och vilka lagliga drag den kan göra
 {
     public Position position;
@@ -98,9 +100,23 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
 
         return null;
     }
+    
     List<Position> LegalPosFixer(List<Position> legalPositionsRaw)
     {
-        //Ta bort allt som int är på brädet.
+        for (int i = 0; i < legalPositionsRaw.Count; i++)
+        {
+            if (legalPositionsRaw[i].x == 8 || legalPositionsRaw[i].x == -1)
+            {
+                //Lös§
+            }
+        }
+        {
+            if (pos.x == 8 || pos.x == -1)
+            {
+                legalPositionsRaw.Remove(pos);
+            }
+        }
+
         return legalPositionsRaw;
     }
 }
