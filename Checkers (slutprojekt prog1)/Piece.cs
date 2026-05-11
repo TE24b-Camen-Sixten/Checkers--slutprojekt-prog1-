@@ -25,7 +25,7 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
     {
         List<Position> legalPositions = [];
 
-        (Piece right, Piece left) DiagonalSquares = GetPieceOnDiagonals(squares, startPos);
+        (Piece? right, Piece? left) DiagonalSquares = GetPieceOnDiagonals(squares, startPos);
 
         try
         {
@@ -50,66 +50,57 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
         catch (IndexOutOfRangeException) { }
 
 
-        // try // Kollar ifall det krashar, vilket det gör om en pjäs är på kanten. Isåfall skippar den koden.
-        // {
-        //     if (squares[moveFrom.x + 1, moveFrom.y + dirY] == null)
-        //     {
-        //         legalPositions.Add(new Position { x = moveFrom.x + 1, y = moveFrom.y + dirY });
-        //     }
-        //     if (squares[moveFrom.x - 1, moveFrom.y + dirY] == null)
-        //     {
-        //         legalPositions.Add(new Position { x = moveFrom.x - 1, y = moveFrom.y + dirY });
-        //     }
 
-        //     // try
-        //     // {
-        //     //     if (squares[moveFrom.x + 1, moveFrom.y + dirY].isBlack != isBlack || squares[moveFrom.x - 1, moveFrom.y + dirY].isBlack != isBlack)
-        //     //     {
-        //     //         // return CanTake();
-        //     //     }
-        //     // }
-        //     // catch (NullReferenceException) { }
-        // }
-        // catch (IndexOutOfRangeException) { }
-
-        return legalPositions;
+        return LegalPosFixer(legalPositions);
     }
 
-    (Piece, Piece) GetPieceOnDiagonals(Piece[,] squares, Position startPos) // Ska vara en mer generell version av det som händer i LegalMoves
+    (Piece?, Piece?) GetPieceOnDiagonals(Piece[,] squares, Position startPos) // Ska vara en mer generell version av det som händer i LegalMoves
     {
-
-        Piece rightPiece = squares[startPos.x - 1, startPos.y + dirY];
-        Piece leftPiece = squares[startPos.x + 1, startPos.y + dirY]; //gör en try där dessa blir null om den fakar
+        Piece? rightPiece;
+        Piece? leftPiece;
+        try
+        {
+            rightPiece = squares[startPos.x - 1, startPos.y + dirY];
+        }
+        catch (IndexOutOfRangeException)
+        {
+            rightPiece = null;
+        }
+        try
+        {
+            leftPiece = squares[startPos.x + 1, startPos.y + dirY]; //gör en try där dessa blir null om den fakar
+        }
+        catch (IndexOutOfRangeException)
+        {
+            leftPiece = null;
+        }
 
         return (rightPiece, leftPiece);
     }
 
     Position? CanTake(Piece[,] squares, Position startPos, int dirY, bool checkLeft)
     {
-        (Piece right, Piece left) DiagonalSquares = GetPieceOnDiagonals(squares, startPos);
+        (Piece? right, Piece? left) DiagonalSquares = GetPieceOnDiagonals(squares, startPos);
         if (checkLeft)
         {
             if (DiagonalSquares.left == null)
             {
-                try
-                {
-                    return squares[startPos.x + 1, startPos.y + dirY].position;
-                }
-                catch (NullReferenceException) { }
+                return new Position { x = startPos.x + 1, y = startPos.y + dirY };
             }
         }
         else if (!checkLeft)
         {
             if (DiagonalSquares.right == null)
             {
-                try
-                {
-                    return squares[startPos.x - 1, startPos.y + dirY].position;
-                }
-                catch (NullReferenceException) { }
+                return new Position { x = startPos.x - 1, y = startPos.y + dirY };
             }
         }
 
         return null;
+    }
+    List<Position> LegalPosFixer(List<Position> legalPositionsRaw)
+    {
+        //Ta bort allt som int är på brädet.
+        return legalPositionsRaw;
     }
 }
