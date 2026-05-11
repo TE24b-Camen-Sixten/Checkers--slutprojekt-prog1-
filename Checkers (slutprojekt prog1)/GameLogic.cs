@@ -49,27 +49,13 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
 
     bool SelectedRightColor(bool player1sTurn, Piece selectedPiece) // Kollar ifall pjäsen har den rätta färgen. (svart om det är player 1 och vit om det är player 2)
     {
-        if (selectedPiece.isBlack == true)
-        {
-            if (player1sTurn == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        if (selectedPiece.isBlack)
+        { 
+            return player1sTurn;
+        } 
         else
         {
-            if (player1sTurn == false)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return !player1sTurn;
         }
     }
 }

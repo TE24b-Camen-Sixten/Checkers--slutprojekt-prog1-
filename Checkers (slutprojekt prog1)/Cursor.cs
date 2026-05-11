@@ -61,7 +61,7 @@ class Cursor
         }
     }
 
-    void CursorOutOfBoundsChecker() //Kollar ifall cursorn är utanför spelplanen, om så är fallet flyttar den in cursorn på brädet.
+    void CursorOutOfBoundsChecker() // Kollar ifall cursorn är utanför spelplanen, om så är fallet flyttar den in cursorn på brädet.
     {
         if (position.y < 0) position.y = 0;
         else if (position.y > 7) position.y = 7;

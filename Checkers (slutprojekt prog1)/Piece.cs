@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 class Piece //Pjäsen håller koll på vilken färg den har och om den är kung. Den kan även sin egen position och vilka lagliga drag den kan göra
 {
     public Position position;
@@ -37,7 +35,12 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
             }
             else
             {
-                CanTake(squares, new Position { x = startPos.x - 1, y = startPos.y + dirY }, dirY, false);
+                Position? pos = CanTake(squares, new Position { x = startPos.x - 1, y = startPos.y + dirY }, dirY, false);
+                if (pos != null)
+                {
+                    board.RemovePiece() //LÖS
+                    legalPositions.Add(pos.Value);
+                }
             }
 
             if (DiagonalSquares.left == null)
@@ -46,7 +49,11 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
             }
             else
             {
-                CanTake(squares, new Position { x = startPos.x + 1, y = startPos.y + dirY }, dirY, true);
+                Position? pos = CanTake(squares, new Position { x = startPos.x + 1, y = startPos.y + dirY }, dirY, true);;
+                if (pos != null)
+                {
+                    legalPositions.Add(pos.Value);
+                }
             }
         }
         catch (IndexOutOfRangeException) { }
@@ -105,18 +112,11 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
     {
         for (int i = 0; i < legalPositionsRaw.Count; i++)
         {
-            if (legalPositionsRaw[i].x == 8 || legalPositionsRaw[i].x == -1)
+            if (legalPositionsRaw[i].x >= 8 || legalPositionsRaw[i].x <= -1)
             {
-                //Lös§
+                legalPositionsRaw.RemoveAt(i);
             }
         }
-        {
-            if (pos.x == 8 || pos.x == -1)
-            {
-                legalPositionsRaw.Remove(pos);
-            }
-        }
-
         return legalPositionsRaw;
     }
 }
