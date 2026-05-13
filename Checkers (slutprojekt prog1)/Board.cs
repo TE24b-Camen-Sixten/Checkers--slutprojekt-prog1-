@@ -13,14 +13,14 @@ class Board //Är brädet. Tar bort och skapar pjäser. Vet även var alla piece
                     {
                         if (y % 2 != 0)
                         {
-                            squares[x, y] = new Piece(x, y);
+                            squares[x, y] = new Piece(x, y, this);
                         }
                     }
                     else
                     {
                         if (y % 2 == 0)
                         {
-                            squares[x, y] = new Piece(x, y);
+                            squares[x, y] = new Piece(x, y, this);
                         }
                     }
                 }

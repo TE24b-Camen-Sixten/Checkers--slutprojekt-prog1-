@@ -26,7 +26,7 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
         }
     }
 
-    public void SelectMovement(List<Position> legalPositions, Cursor cursor, Board board, Position moveFrom) // Låter spelaren välja var hen vill flytta den valda pjäsen till en av de tillåtna rutorna.
+    public void SelectMovement(List<Position> legalPositions, Cursor cursor, Board board, Position moveFrom, Position enemyPos) // Låter spelaren välja var hen vill flytta den valda pjäsen till en av de tillåtna rutorna.
     {
         while (true)
         {
@@ -40,6 +40,10 @@ class GameLogic //Denna class ska ansvara för logik så som vems tur det är oc
                 if (choosenPosition.x == x && choosenPosition.y == y)
                 {
                     board.MovePiece(moveFrom, choosenPosition);
+                    if (y > moveFrom.y + 1)
+                    {
+                        board.RemovePiece(enemyPos);
+                    }
                     return;
                 }
             }

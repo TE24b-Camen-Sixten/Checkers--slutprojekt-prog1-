@@ -1,13 +1,19 @@
+using System.Security.Cryptography.X509Certificates;
+
 class Piece //Pjäsen håller koll på vilken färg den har och om den är kung. Den kan även sin egen position och vilka lagliga drag den kan göra
 {
+    Board board;
     public Position position;
+
+    public Position enemyPos;
     public bool isBlack;
     public bool isKing = false;
     int dirY; // En variabel som håller koll på om en pjäs går upp eller ner 1 = ner -1 = upp. Det är en int för då kan man bara addera in den
 
-    public Piece(int x, int y) // Körs när en pjäs skapas. Den sätter positionen och sätter pjäsen till antingen svart eller vit.
+    public Piece(int x, int y, Board getBoard) // Körs när en pjäs skapas. Den sätter positionen och sätter pjäsen till antingen svart eller vit.
     {
         position = new Position { x = x, y = y };
+        board = getBoard;
 
         if (position.y > 4)
         {
@@ -35,10 +41,11 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
             }
             else
             {
-                Position? pos = CanTake(squares, new Position { x = startPos.x - 1, y = startPos.y + dirY }, dirY, false);
+                enemyPos = new Position { x = startPos.x - 1, y = startPos.y + dirY };
+                Position? pos = CanTake(squares, enemyPos, dirY, false);
                 if (pos != null)
                 {
-                    board.RemovePiece() //LÖS
+                    // board.RemovePiece(enemyPos);
                     legalPositions.Add(pos.Value);
                 }
             }
@@ -49,9 +56,11 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
             }
             else
             {
-                Position? pos = CanTake(squares, new Position { x = startPos.x + 1, y = startPos.y + dirY }, dirY, true);;
+                enemyPos = new Position { x = startPos.x + 1, y = startPos.y + dirY };
+                Position? pos = CanTake(squares, enemyPos, dirY, true); ;
                 if (pos != null)
                 {
+                    // board.RemovePiece(enemyPos);
                     legalPositions.Add(pos.Value);
                 }
             }
@@ -107,7 +116,7 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
 
         return null;
     }
-    
+
     List<Position> LegalPosFixer(List<Position> legalPositionsRaw)
     {
         for (int i = 0; i < legalPositionsRaw.Count; i++)
