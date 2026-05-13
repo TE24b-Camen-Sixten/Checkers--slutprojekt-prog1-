@@ -33,7 +33,7 @@ while(true)
         Console.WriteLine(legalpostest[1].y);
     }
 
-    logic.SelectMovement(legalpostest, cursor, board, movingPiece.position, movingPiece.enemyPos);
+    logic.SelectMovement(legalpostest, cursor, board, movingPiece.position, movingPiece.enemyPos, movingPiece.dirY);
 
     Console.Clear();
     board.PrintBoard(cursor.position);

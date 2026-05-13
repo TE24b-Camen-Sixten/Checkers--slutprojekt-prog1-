@@ -8,7 +8,7 @@ class Piece //Pjäsen håller koll på vilken färg den har och om den är kung.
     public Position enemyPos;
     public bool isBlack;
     public bool isKing = false;
-    int dirY; // En variabel som håller koll på om en pjäs går upp eller ner 1 = ner -1 = upp. Det är en int för då kan man bara addera in den
+    public int dirY; // En variabel som håller koll på om en pjäs går upp eller ner 1 = ner -1 = upp. Det är en int för då kan man bara addera in den
 
     public Piece(int x, int y, Board getBoard) // Körs när en pjäs skapas. Den sätter positionen och sätter pjäsen till antingen svart eller vit.
     {
